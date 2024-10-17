@@ -97,7 +97,7 @@ const BusinessDetail = () => {
 
   const updatesToShow = company && showAllUpdates ? [...company.updates].reverse() : company?.updates?.slice(-3).reverse();
   const companyFilename = company.image ? company.image.split('\\').pop().split('/').pop() : null;
-  const imageUrl = companyFilename ? `http://localhost:5000/uploads/${companyFilename}` : null;
+  const imageUrl = companyFilename ? `/uploads/${companyFilename}` : null;
 
   return (
     <div className="w-full p-6 bg-gray-100">

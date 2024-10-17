@@ -36,7 +36,7 @@ const ContactDetail = () => {
         return <div className="flex justify-center align-middle text-7xl">Loading...</div>; 
       }
       const contactFilename = contact.image ? contact.image.split('\\').pop().split('/').pop() : null;
-      const imageUrl = contactFilename ? `http://localhost:5000/uploads/${contactFilename}` : null;
+      const imageUrl = contactFilename ? `/uploads/${contactFilename}` : null;
       const kappaData = {
         labels: contact.relationshipTracking.kappa.map((point) => new Date(point.time).toLocaleDateString()),
         datasets: [

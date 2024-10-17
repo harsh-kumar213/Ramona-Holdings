@@ -5,7 +5,7 @@ const Business = ({company}) => {
     const { name, coreValues, updates } = company;
     const recentUpdate = updates.length ? updates[updates.length - 1] : 'No updates yet';
     const companyFilename = company.image ? company.image.split('\\').pop().split('/').pop() : null;
-    const imageUrl = companyFilename ? `http://localhost:5000/uploads/${companyFilename}` : null;
+    const imageUrl = companyFilename ? `/uploads/${companyFilename}` : null;
 
     const navigate = useNavigate();
     const companyDetail =()=>{

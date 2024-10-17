@@ -59,7 +59,7 @@ const DealDetail = () => {
   }
 
   const dealFilename = deal.image ? deal.image.split('\\').pop().split('/').pop() : null;
-  const imageUrl = dealFilename ? `http://localhost:5000/uploads/${dealFilename}` : null;
+  const imageUrl = dealFilename ? `/uploads/${dealFilename}` : null;
 
   return (
     <div className="container mx-auto bg-white p-6">

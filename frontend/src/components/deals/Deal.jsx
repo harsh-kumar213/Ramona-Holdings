@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Deal = ({ deal }) => {
   const dealFilename = deal.image ? deal.image.split('\\').pop().split('/').pop() : null;
-  const imageUrl = dealFilename ? `http://localhost:5000/uploads/${dealFilename}` : null;
+  const imageUrl = dealFilename ? `/uploads/${dealFilename}` : null;
 
   const trimmedContent = deal.summary.length > 100 ? `${deal.summary.substring(0, 100)}...` : deal.summary;
 

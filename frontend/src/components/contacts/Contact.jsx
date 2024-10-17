@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const Contact = ({contact}) => {
     
     const contactFilename = contact.image ? contact.image.split('\\').pop().split('/').pop() : null;
-    const imageUrl = contactFilename ? `http://localhost:5000/uploads/${contactFilename}` : null;
+    const imageUrl = contactFilename ? `/uploads/${contactFilename}` : null;
 
     const navigate = useNavigate();
 

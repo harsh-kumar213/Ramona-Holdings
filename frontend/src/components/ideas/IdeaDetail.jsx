@@ -61,7 +61,7 @@ const IdeaDetail = () => {
   }
 
   const imageFilename = idea.image ? idea.image.split('\\').pop().split('/').pop() : null;
-  const imageUrl = imageFilename ? `http://localhost:5000/uploads/${imageFilename}` : null;
+  const imageUrl = imageFilename ? `/uploads/${imageFilename}` : null;
 
   return (
     <div className="flex mt-5 justify-center items-center h-screen bg-gray-100">
