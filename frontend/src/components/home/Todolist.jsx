@@ -47,11 +47,19 @@ const TodoList = () => {
         ))}
       </div>
       <button
-        onClick={() => setAll(!all)}
+        onClick={() => setAll(true)}
         className="mt-6 w-full bg-blue-600 text-white px-4 py-2 rounded-lg text-lg hover:bg-blue-700"
       >
         Show All Tasks
       </button>
+      {all &&
+       <button
+       onClick={() => setAll(false)}
+       className="mt-6 w-full bg-blue-600 text-white px-4 py-2 rounded-lg text-lg hover:bg-blue-700"
+     >
+       Hide All Tasks
+     </button>
+      }
     </div>
   );
 };
