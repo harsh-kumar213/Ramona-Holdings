@@ -13,7 +13,7 @@ const useLogin = () => {
         try {
             const res = await axios.post("/api/auth/login",{userName,password});
             const data =  res.data;
-            console.log(data)
+            
             if(data.error)
                 {
                     throw new error(data.error);

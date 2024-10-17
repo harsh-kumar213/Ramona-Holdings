@@ -29,6 +29,7 @@ const Header = () => {
     }
    
     handleCloseModal(); 
+    logout();
   };
 
   return (

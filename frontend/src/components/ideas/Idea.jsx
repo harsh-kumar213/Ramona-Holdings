@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const IdeaCard = ({ idea }) => {
   // Extract the image filename
   const imageFilename = idea.image ? idea.image.split('\\').pop().split('/').pop() : null;
-  const imageUrl = imageFilename ? `/api/uploads/${imageFilename}` : null;
+  const imageUrl = imageFilename ? `http://localhost:5000/uploads/${imageFilename}` : null;
 
   const trimmedContent = idea.content.length > 50 ? `${idea.content.substring(0, 50)}...` : idea.content;
 

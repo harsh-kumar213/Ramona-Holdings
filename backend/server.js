@@ -16,25 +16,32 @@ import taskRoutes from './routes/tasks.routes.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+
+
 dotenv.config();
 
 
 const app = express();
+const PORT = 5000|| process.env.PORT;
 app.use(cors());
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.use('/auth',authRoutes);
-app.use('/home/tasks',taskRoutes);
-app.use('/ideas',ideaRoutes);
-app.use('/deals',dealRoutes);
-app.use('/contacts',contactRoutes);
-app.use('/theses',thesesRoutes);
-app.use('/company',companyRoutes);
+app.use('/api/auth',authRoutes);
+app.use('/api/home/tasks',taskRoutes);
+app.use('/api/ideas',ideaRoutes);
+app.use('/api/deals',dealRoutes);
+app.use('/api/contacts',contactRoutes);
+app.use('/api/theses',thesesRoutes);
+app.use('/api/company',companyRoutes);
 
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-app.listen(5000,()=>{
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname,"../frontend/dist","index.html"));
+})
+app.listen(PORT,()=>{
     connectDB();
-    console.log('server listening on 5000')
+    console.log(`server listening on ${PORT}`)
 })
