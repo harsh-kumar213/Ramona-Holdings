@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { Timeline, TimelineItem, TimelineSeparator, TimelineConnector, TimelineContent, TimelineDot, TimelineOppositeContent } from '@mui/lab';
-import { Typography, Button } from '@mui/material';
 import { FaCheckCircle, FaCircle } from 'react-icons/fa';
 import DealForm from './DealForm.jsx';
 
@@ -81,53 +79,51 @@ const DealDetail = () => {
         <p>{deal.country}</p>
       </div>}
       
-      <div className="mb-6">
-        <h3 className="font-bold text-lg text-primary">Roadmap:</h3>
-        <Timeline position="alternate">
-          {deal.roadmap && deal.roadmap.length > 0 ? (
-            deal.roadmap.map((phase, phaseIndex) => (
-              <TimelineItem key={phase._id}>
-                <TimelineOppositeContent sx={{ m: 'auto 0' }}>
-                  <Typography variant="body2" color="text.secondary">
-                    {`Phase ${phaseIndex + 1}: `}
-                  </Typography>
-                </TimelineOppositeContent>
-                <TimelineSeparator>
-                  <TimelineDot color="primary" />
-                  {phaseIndex < deal.roadmap.length - 1 && <TimelineConnector />}
-                </TimelineSeparator>
-                <TimelineContent sx={{ py: '12px', px: 2 }}>
-                  <Typography variant="h6" component="span">
-                    {phase.name}
-                  </Typography>
-                  {phase.tasks && phase.tasks.length > 0 && (
-                    <ul>
-                      {phase.tasks.map((task) => (
-                        <li key={task._id} className="flex items-center space-x-2">
-                          <Button
-                            onClick={() =>
-                              handleTaskCompletion(phase._id, task._id, task.completed)
-                            }
-                          >
-                            {task.completed ? (
-                              <FaCheckCircle className="text-green-500" />
-                            ) : (
-                              <FaCircle className="text-gray-400" />
-                            )}
-                          </Button>
-                          <span>{task.description}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </TimelineContent>
-              </TimelineItem>
-            ))
-          ) : (
-            <Typography>No roadmap available.</Typography>
-          )}
-        </Timeline>
-      </div>
+      <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8"> Roadmap :</h1>
+      {deal.roadmap && deal.roadmap.length > 0 ? (
+        <div className="relative">
+          {/* Timeline line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-primary transform -translate-x-1/2"></div>
+          
+          {deal.roadmap.map((phase, phaseIndex) => (
+            <div key={phase._id} className={`flex ${phaseIndex % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} mb-8`}>
+              <div className="w-1/2"></div>
+              <div className="w-6 h-6 absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center">
+                <div className="w-3 h-3 bg-primary rounded-full"></div>
+              </div>
+              <div className="w-1/2 px-4">
+                <div className="card bg-base-100 shadow-xl">
+                  <div className="card-body">
+                    <h2 className="card-title">
+                      Phase {phaseIndex + 1}: {phase.name}
+                    </h2>
+                    {phase.tasks && phase.tasks.length > 0 && (
+                      <ul className="mt-4 space-y-2">
+                        {phase.tasks.map((task) => (
+                          <li key={task._id} className="flex items-center space-x-2">
+                            <button className="btn btn-circle btn-xs">
+                              {task.completed ? (
+                                <FaCheckCircle className="text-success" />
+                              ) : (
+                                <FaCircle className="text-base-300" />
+                              )}
+                            </button>
+                            <span>{task.description}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-lg">No roadmap available.</p>
+      )}
+    </div>
       
       <div className="mb-6">
         <h3 className="font-bold text-lg text-primary">Stakeholders:</h3>
