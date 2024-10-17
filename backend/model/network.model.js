@@ -4,7 +4,11 @@ const Schema = mongoose.Schema;
 const contactSchema = new Schema({
     fullName: { type: String, required: true },
     occupation: { type: String, required: true },
-    country:{type:String,required:true}, // List of countries they are affiliated with
+    country:{type:String,required:true}, 
+    bio:{type:String,required:true},
+    industry:{type:String,required:true},
+    status:{type:String,required:true},
+    affiliation:{type:String,required:true},
     socialMedia: {
         linkedIn: { type: String },
         twitter: { type: String },
@@ -14,11 +18,20 @@ const contactSchema = new Schema({
         skillName: { type: String, required: true },
     }],
     relationshipTracking: {
-        whatTheyCanProvide: { type: String },
-        whatTheyNeed: { type: String },
+        whatTheyCanProvide: { type: [String] },
+        whatTheyNeed: { type: [String] },
         flags: { type: String, enum: ['Red', 'Yellow', 'Green'] },
         karmaPoints: { type: Number, default: 0 }, // Favor system tracking
-        kappa: [{ time: Date, value: Number }] // κ vs t graph data
+        kappa: [{
+            time: {
+              type: Date,
+              required: true
+            },
+            value: {
+              type: Number,
+              required: true
+            }
+          }]
     },
     mutualConnections: [{ type: Schema.Types.ObjectId, ref: 'Contact' }], // Reference to other contacts
     notes: { type: String }, // Markdown notes field

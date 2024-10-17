@@ -4,15 +4,18 @@ import {
     getCompanyById,
     updateCompany,
     updateCompanyFinancials,
-    addUpdatesToCompany
+    addUpdatesToCompany,
+    getAllCompanies
 } from '../controllers/company.controller.js';
+import upload from '../middleware/upload.middleware.js';
 
 const router = express.Router();
-router.post('/',createCompany);
+router.post('/',upload.single('image'),createCompany);
 router.route('/:id')
     .get(getCompanyById)
-    .patch(updateCompany);
 
+router.patch('/:id',upload.single('image'),updateCompany);
+router.get('/map',(req,res,next)=>{console.log("route hit");next()},getAllCompanies);
 router.route('/financials/:id')
     .patch(updateCompanyFinancials);
 

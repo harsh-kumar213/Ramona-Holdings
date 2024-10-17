@@ -22,10 +22,10 @@ router.post('/', upload.single('image'), createDealWithImage);
 
 
 // Update general deal information (title, bio, etc.)
-router.patch('/:id', updateDeal);
+router.patch('/:id',upload.single('image'), updateDeal);
 
 // Update task status (mark as complete or incomplete)
-router.patch('/:id/roadmap/task', updateTaskStatus);
+router.patch('/roadmap/task/:id', updateTaskStatus);
 
 
 

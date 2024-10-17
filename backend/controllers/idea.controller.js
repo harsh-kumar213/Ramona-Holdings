@@ -43,12 +43,11 @@ const createIdea = async (req, res) => {
 // Update an existing idea
 const updateIdea = async (req, res) => {
   try {
-    console.log("In the update controller");
-    console.log(req.params);
+   
 
     const ideaId = req.params.id; // Get the idea ID from the route
     const updateData = { ...req.body }; // Get the data from the request body
-
+    console.log(updateData)
     // If no new image is provided, keep the existing image
     const existingIdea = await Idea.findById(ideaId);
     if (!existingIdea) {
@@ -83,6 +82,7 @@ const addSuggestion = async (req, res) => {
     if (!idea) return res.status(404).json({ message: "Idea not found" });
 
     const { suggestedBy, suggestionText,status } = req.body;
+    console.log(suggestedBy,suggestionText,status);
     idea.suggestions.push({ suggestedBy, suggestionText,status });
     await idea.save();
 

@@ -12,24 +12,23 @@ const phaseSchema = new mongoose.Schema({
     tasks: [taskSchema],
 });
 
-// Stakeholder schema for detailed stakeholder information
+
 const stakeholderSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    role: { type: String, required: true }, // Example: Buyer, Seller, Broker, etc.
-    contactInfo: { type: String }, // Can be email, phone, etc.
-    affiliation: { type: String }, // Their company or organization
-    involvement: { type: String }, // How they're involved in the deal
+    role: { type: String, required: true }, 
+    bringsToTable:[{type:String}],
+    takesFromTable:[{type:String}]
 });
 
 // Main Deal schema
 const dealSchema = new mongoose.Schema({
     title: { type: String, required: true },
     summary: { type: String, required: true },
-    bio: { type: String },
-    stakeholders: [stakeholderSchema], // Array of stakeholders with detailed info
-    roadmap: [phaseSchema], // Array of phases, each containing tasks
+    stakeholders: [stakeholderSchema], 
+    country:{type:String},
+    roadmap: [phaseSchema], 
     financials: { type: Number }, // Financial details
-    image: { type: String }, // Path to the uploaded image
+    image: { type: String },
 }, { timestamps: true });
 
 const Deal = mongoose.model('Deal', dealSchema);

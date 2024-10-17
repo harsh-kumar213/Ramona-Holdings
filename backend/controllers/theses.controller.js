@@ -6,8 +6,9 @@ import Company from '../model/company.model.js';
 const createTheses = async(req,res)=>{
     try {
         const {title,description} = req.body;
+        console.log(title,description);
         if(!title || !description)
-            res.staus(400).json({error:"not enough data"})
+           return res.status(400).json({error:"not enough data"});
         const newThesis = new Thesis({
             title,
             description,
@@ -38,7 +39,10 @@ const updateTheses  = async(req,res)=>{
  const getAllTheses = async (req, res) => {
     try {
         const theses = await Thesis.find();
-        res.json(theses);
+        if(!theses)
+            res.status(404).json({msg:'cant find the theses'});
+        console.log(theses)
+        res.status(200).json(theses);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch theses' });
     }

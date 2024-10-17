@@ -9,7 +9,7 @@ const signup = async (req,res)=>{
 
        if(password!=confirmPassword)
        {
-          res.status(400).json({error:"passwords do not match"});
+         return res.status(400).json({error:"passwords do not match"});
        }
 
        const user = await User.findOne({userName});
@@ -21,7 +21,7 @@ const signup = async (req,res)=>{
        // Hash Password here
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password,salt);
-       // https://avatar-placeholder.iran.liara.run/
+       
 
 
        const newUser = new User({
@@ -57,8 +57,9 @@ const signup = async (req,res)=>{
 const login = async (req,res)=>{
     try {
         const {userName,password} = req.body;
+        console.log(userName,password);
         const user = await User.findOne({userName});
-        const isPasswordCorrect = bcrypt.compare(password,user?.password||"")
+        const isPasswordCorrect = user && await bcrypt.compare(password,user?.password||"")
         if(!user || !isPasswordCorrect)
         {
             return res.status(400).json({error:"Invalid username or password"});
@@ -69,9 +70,7 @@ const login = async (req,res)=>{
         res.json(
             {
                 _id:user._id,
-                fullName:user.fullName,
                 userName:user.userName,
-                profilePic:user.profilePic
             }
         );
 
@@ -90,4 +89,25 @@ const logout =(req,res)=>{
     }
 }
 
-export {signup,login,logout};
+const passwordChange = async (req,res)=>{
+    try {
+        const {id,oldPassword,newPassword} = req.body;
+        console.log(id,oldPassword,newPassword)
+        const user = await User.findById(id);
+        if(!user)
+            return res.status(404).json({error:"unable to find the user"});
+        const isPasswordCorrect = bcrypt.compare(oldPassword,user?.password)
+        if(!isPasswordCorrect)
+            return res.status(400).json({error:"wrong password entered"});
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword,salt);
+        user.password = hashedPassword;
+        await user.save();
+        res.status(200).json(user);
+    } catch (error) {
+        console.log("error in changing the password",error);
+        res.status(500).json({error:"internal server error"});
+    }
+}
+
+export {signup,login,logout,passwordChange};

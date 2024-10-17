@@ -12,27 +12,24 @@ const financialSchema = new mongoose.Schema({
 const companySchema = new Schema({
     name: { type: String, required: true }, // Company name
     thesis: { type: Schema.Types.ObjectId, ref: 'Thesis', required: true }, // Linked to the Thesis
-    businessModel: { type: String, required: true }, // Business model
-    coreValues: { type: String }, // Core values of the company
+    businessModel: { type: String, required: true }, 
+    coreValues: { type: String }, 
+    country:{type:String},
     roadmap: [
         {
             phase: String,
-            tasks: [{ description: String }] // Task description in each phase
+            tasks: [{ description: String,completed:Boolean }] // Task description in each phase
         }
     ],
     team: [{ 
-        profilePic: String, 
-        name: String, 
-        role: String, 
-        
+        type:Schema.Types.ObjectId, ref:'Contact',
     }],
     deal: { 
-        partnershipDetails: String, 
         involvement: String // RH's involvement in the deal (e.g., partner, investor)
     },
     financials:[financialSchema], // Financial analytics of the business
     updates: [{ type: String }], // Markdown field for updates
-   
+    image:{type:String}
 });
 
 // Timestamps on save

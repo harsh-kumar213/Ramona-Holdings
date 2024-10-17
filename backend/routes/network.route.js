@@ -8,7 +8,8 @@ const router = express.Router();
 router.get('/', getAllContacts);
 
 // GET a single contact by ID
-router.route('/:id').get( getContactById).patch(updateContact).delete(deleteContact);
+router.route('/:id').get( getContactById).delete(deleteContact);
+router.patch('/:id',upload.single('image'),updateContact);
 
 // POST create a new contact
 router.post('/',upload.single("image"), createContact);
