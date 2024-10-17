@@ -5,7 +5,7 @@ import AddTask from './AddTask.jsx';
 
 const TodoList = () => {
   const [tasks, setTasks] = useState([]);
-
+  const[all,setAll] = useState(false);
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -30,6 +30,8 @@ const TodoList = () => {
     fetchTasks();
   };
 
+  tasks = all?tasks.slice(0,3):tasks;
+  
   return (
     <div className="container mx-auto border-1   rounded bg-white border mt-8 max-w-xl">
       <h1 className="text-3xl font-bold text-center mb-6">Todo List</h1>
@@ -45,7 +47,7 @@ const TodoList = () => {
         ))}
       </div>
       <button
-        onClick={() => fetchTasks()}
+        onClick={() => setAll(!all)}
         className="mt-6 w-full bg-blue-600 text-white px-4 py-2 rounded-lg text-lg hover:bg-blue-700"
       >
         Show All Tasks
